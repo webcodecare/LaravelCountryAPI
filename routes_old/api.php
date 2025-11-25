@@ -10,7 +10,6 @@ use App\Http\Controllers\API\DistrictController;
 use App\Http\Controllers\API\UpazilaController;
 use App\Http\Controllers\API\UnionController;
 
-Route::get('phone-codes', [CountryController::class, 'phoneCodes']);
 Route::apiResource('countries', CountryController::class);
 Route::get('countries/{id}/states', [CountryController::class, 'states']);
 Route::get('countries/{id}/cities', [CountryController::class, 'cities']);

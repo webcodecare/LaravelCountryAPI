@@ -78,21 +78,7 @@ class CountryController extends Controller
             'name' => 'required|string',
             'code' => 'nullable|string',
             'iso3' => 'nullable|string',
-            'numeric_code' => 'nullable|string',
-            'dial_code' => 'nullable|string',
-            'flag' => 'nullable|string|max:10',
-            'capital' => 'nullable|string',
-            'currency' => 'nullable|string',
-            'currency_name' => 'nullable|string',
-            'currency_symbol' => 'nullable|string|max:10',
-            'tld' => 'nullable|string',
-            'native' => 'nullable|string',
-            'region' => 'nullable|string',
-            'subregion' => 'nullable|string',
-            'timezones' => 'nullable|string',
-            'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
-            'emoji' => 'nullable|string|max:10'
+            'dial_code' => 'nullable|string'
         ]);
         
         $country = Country::create($validated);
@@ -119,21 +105,7 @@ class CountryController extends Controller
             'name' => 'sometimes|required|string',
             'code' => 'nullable|string',
             'iso3' => 'nullable|string',
-            'numeric_code' => 'nullable|string',
-            'dial_code' => 'nullable|string',
-            'flag' => 'nullable|string|max:10',
-            'capital' => 'nullable|string',
-            'currency' => 'nullable|string',
-            'currency_name' => 'nullable|string',
-            'currency_symbol' => 'nullable|string|max:10',
-            'tld' => 'nullable|string',
-            'native' => 'nullable|string',
-            'region' => 'nullable|string',
-            'subregion' => 'nullable|string',
-            'timezones' => 'nullable|string',
-            'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
-            'emoji' => 'nullable|string|max:10'
+            'dial_code' => 'nullable|string'
         ]);
         
         $country->update($validated);
@@ -161,24 +133,6 @@ class CountryController extends Controller
         return response()->json([
             'error' => false,
             'msg' => 'Country deleted successfully'
-        ]);
-    }
-    
-    public function phoneCodes()
-    {
-        $countries = Country::select(
-                'id', 'name', 'code', 'iso3', 'numeric_code', 'dial_code', 'flag',
-                'capital', 'currency', 'currency_name', 'currency_symbol',
-                'tld', 'native', 'region', 'subregion', 'emoji'
-            )
-            ->whereNotNull('dial_code')
-            ->orderBy('name')
-            ->get();
-        
-        return response()->json([
-            'error' => false,
-            'msg' => 'Country phone codes with complete data retrieved successfully',
-            'data' => $countries
         ]);
     }
 }

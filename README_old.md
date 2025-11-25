@@ -54,18 +54,11 @@ Visit `http://localhost:8000/api/countries` to see your API in action!
 
 ## ✨ Features & Capabilities
 
-### 🌐 Complete International Geographic Data
-- **250 Countries** - Every country in the world with comprehensive data
-- **Country Flags** - Unicode emoji flags (🇺🇸 🇬🇧 🇨🇦 🇮🇳 🇧🇩 🇦🇺 🇯🇵 🇨🇳) - NO image files needed!
-- **Currency Information** - Currency codes, names, and symbols for all countries (USD $, EUR €, GBP £, INR ₹, etc.)
-- **Capital Cities** - Capital city for every country
-- **Geographic Data** - Region, subregion, latitude/longitude coordinates
-- **Timezone Data** - IANA timezone identifiers for every country
-- **Phone Codes API** - International calling codes with complete country data
-- **Domain Extensions** - Top-level domains (.us, .uk, .in, .au, etc.)
-- **5,000+ States/Provinces** - Worldwide coverage for 248 countries
-- **143,000+ Cities** - Comprehensive worldwide city database across 195 countries
-- **Country-State-City Relationships** - Complete hierarchical data structure
+### 🌐 International Geographic Data
+- **250+ Countries** - Complete list with ISO2/ISO3 codes and international dial codes
+- **5,000+ States/Provinces** - All major administrative regions worldwide
+- **143,000+ Cities** - Comprehensive city database across all countries
+- **Country-State-City Relationships** - Hierarchical data structure for easy navigation
 
 ### 🇧🇩 Bangladesh Administrative Divisions (বাংলাদেশ প্রশাসনিক বিভাগ)
 - **8 Divisions (বিভাগ)** - Dhaka, Chattagram, Rajshahi, Khulna, Barisal, Sylhet, Rangpur, Mymensingh
@@ -97,18 +90,10 @@ Visit `http://localhost:8000/api/countries` to see your API in action!
 
 ## 🗃 Database Schema
 
-### International Data (Worldwide)
-**Countries Table** - Complete global data for 250 countries:
-- Basic: name, ISO2 code, ISO3 code, numeric code
-- Identification: flag emoji, native name
-- Contact: phone/dial code, TLD (domain)
-- Location: capital city, region, subregion, latitude, longitude
-- Finance: currency code, currency name, currency symbol
-- Time: timezones (IANA format)
-
-**Geographic Hierarchy:**
-- `states` - 5,000+ states/provinces for 248 countries worldwide
-- `cities` - 143,000+ cities for 195 countries worldwide
+### International Data
+- `countries` - Country information (name, code, ISO3, dial code)
+- `states` - States/provinces linked to countries
+- `cities` - Cities linked to countries
 
 ### Bangladesh-Specific Data
 - `divisions` - 8 administrative divisions (বিভাগ)
@@ -198,8 +183,7 @@ All endpoints return JSON responses with consistent structure:
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/countries` | Get all countries with flags |
-| GET | `/api/phone-codes` | Get country phone codes with flags 📞 |
+| GET | `/api/countries` | Get all countries |
 | POST | `/api/countries` | Create a new country |
 | GET | `/api/countries/{id}` | Get a specific country |
 | PUT | `/api/countries/{id}` | Update a country |
@@ -297,23 +281,9 @@ curl -X GET http://localhost:8000/api/countries
       "name": "Afghanistan",
       "code": "AF",
       "iso3": "AFG",
-      "numeric_code": "004",
       "dial_code": "+93",
-      "flag": "🇦🇫",
-      "capital": "Kabul",
-      "currency": "AFN",
-      "currency_name": "Afghan afghani",
-      "currency_symbol": "؋",
-      "tld": ".af",
-      "native": "افغانستان",
-      "region": "Asia",
-      "subregion": "Southern Asia",
-      "timezones": "[\"UTC+04:30\"]",
-      "latitude": "33.00000000",
-      "longitude": "65.00000000",
-      "emoji": "🇦🇫",
-      "created_at": "2025-11-25T10:26:32.000000Z",
-      "updated_at": "2025-11-25T10:26:32.000000Z"
+      "created_at": "2025-11-24T18:12:02.000000Z",
+      "updated_at": "2025-11-24T18:12:02.000000Z"
     }
   ]
 }
@@ -323,58 +293,6 @@ curl -X GET http://localhost:8000/api/countries
 
 ```bash
 curl -X GET http://localhost:8000/api/countries/1
-```
-
-### Get Country Phone Codes with Flags
-
-```bash
-curl -X GET http://localhost:8000/api/phone-codes
-```
-
-**Response:**
-```json
-{
-  "error": false,
-  "msg": "Country phone codes with complete data retrieved successfully",
-  "data": [
-    {
-      "id": 1,
-      "name": "Afghanistan",
-      "code": "AF",
-      "iso3": "AFG",
-      "numeric_code": "004",
-      "dial_code": "+93",
-      "flag": "🇦🇫",
-      "capital": "Kabul",
-      "currency": "AFN",
-      "currency_name": "Afghan afghani",
-      "currency_symbol": "؋",
-      "tld": ".af",
-      "native": "افغانستان",
-      "region": "Asia",
-      "subregion": "Southern Asia",
-      "emoji": "🇦🇫"
-    },
-    {
-      "id": 18,
-      "name": "Bangladesh",
-      "code": "BD",
-      "iso3": "BGD",
-      "numeric_code": "050",
-      "dial_code": "+880",
-      "flag": "🇧🇩",
-      "capital": "Dhaka",
-      "currency": "BDT",
-      "currency_name": "Bangladeshi taka",
-      "currency_symbol": "৳",
-      "tld": ".bd",
-      "native": "Bangladesh",
-      "region": "Asia",
-      "subregion": "Southern Asia",
-      "emoji": "🇧🇩"
-    }
-  ]
-}
 ```
 
 ### Get States for a Country
@@ -422,8 +340,7 @@ curl -X POST http://localhost:8000/api/countries \
     "name": "New Country",
     "code": "NC",
     "iso3": "NCY",
-    "dial_code": "+999",
-    "flag": "🏳️"
+    "dial_code": "+999"
   }'
 ```
 
@@ -448,42 +365,13 @@ curl -X DELETE http://localhost:8000/api/countries/1
 
 ## 📊 Data Statistics
 
-### Worldwide Data
-- **Countries**: 250 with complete global information 🌍
-  - ✅ Flags, phone codes, currencies, capitals
-  - ✅ Geographic coordinates (lat/long)
-  - ✅ Regions, subregions, timezones
-  - ✅ Domain extensions (TLD)
-  - ✅ Native names and translations
-- **States/Provinces**: 5,000+ across 248 countries
-- **Cities**: 143,000+ across 195 countries
-
-### Bangladesh-Specific Data
-- **Divisions**: 8 (বিভাগ)
-- **Districts**: 64 (জেলা)
-- **Upazilas**: 495 (উপজেলা)
-- **Unions**: 4,554 (ইউনিয়ন)
-
-## 🏴 About Country Flags
-
-**Flags are Unicode Emoji Characters** - Not separate image files!
-
-The flags (🇺🇸 🇬🇧 🇨🇦 🇮🇳 🇧🇩 🇦🇺 🇯🇵 🇨🇳 🇩🇪 🇫🇷) are stored as text in the database and automatically display as colorful flag emojis in:
-- ✅ Modern web browsers (Chrome, Firefox, Safari, Edge)
-- ✅ Mobile apps (iOS, Android)
-- ✅ Desktop applications
-
-**How it works:**
-```json
-{
-  "name": "United States",
-  "code": "US",
-  "dial_code": "+1",
-  "flag": "🇺🇸"
-}
-```
-
-The flag emoji renders automatically - no image hosting or CDN needed!
+- **Countries**: 250
+- **States**: 5,000+
+- **Cities**: 143,000+
+- **Divisions**: 8 (Bangladesh)
+- **Districts**: 64 (Bangladesh)
+- **Upazilas**: 495 (Bangladesh)
+- **Unions**: 4,554 (Bangladesh)
 
 ## 🌐 Deployment
 
@@ -587,36 +475,25 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 This API is perfect for:
 
-- **E-commerce Platforms** - Country, state, city selection with currency information for international sales
-- **Registration Forms** - Complete location data with cascading dropdowns (Country → State → City)
-- **Phone Number Inputs** - Country selector with flags, dial codes, and native names
-- **Currency Converters** - All currencies with codes, names, and symbols (USD $, EUR €, GBP £, INR ₹)
-- **Fintech Applications** - Complete country and currency data for international transactions
-- **Mobile Apps** - Country pickers with flags, capitals, and regional data for iOS/Android
-- **Travel Booking Systems** - Destination data with timezones, coordinates, and regional information
-- **Bangladesh Government Apps** - Complete administrative divisions (Division → District → Upazila → Union)
-- **Logistics & Shipping** - International address validation with full geographic data
-- **Educational Projects** - Geography, currency, and location-based learning applications
-- **Real Estate Platforms** - Property listings with complete location and regional data
-- **Weather Applications** - Timezone and coordinate data for weather services
+- **E-commerce Applications** - Country, state, city selection for shipping addresses
+- **Registration Forms** - Location-based user registration with cascading dropdowns
+- **Bangladesh Government Applications** - Complete administrative division data (Division → District → Upazila → Union)
+- **Mobile Apps** - Location services for Android/iOS applications
+- **Travel & Tourism Platforms** - Worldwide destination data
+- **Logistics & Delivery Systems** - Address validation and location management
+- **Educational Projects** - Learning Laravel REST API development
+- **Real Estate Platforms** - Property location categorization
 
 ## 🌟 Why Choose This API?
 
-- ✅ **Production-Ready** - Tested and deployed, ready for live use
-- ✅ **Complete Global Data** - 250 countries with ALL information:
-  - Flags 🏴, currencies 💰, capitals 🏛️, coordinates 📍
-  - Timezones 🕐, domains 🌐, regions 🗺️, phone codes 📞
-- ✅ **5,000+ States + 143,000+ Cities** - Complete worldwide coverage
-- ✅ **Unicode Emojis** - No image hosting needed, flags work everywhere
-- ✅ **Currency Data** - All world currencies with symbols and codes
-- ✅ **Geographic Coordinates** - Latitude/longitude for mapping
-- ✅ **Timezone Support** - IANA timezone identifiers
-- ✅ **Bangladesh Specialized** - Complete administrative data with Bengali support
-- ✅ **RESTful Design** - Clean, predictable API architecture
-- ✅ **Well Documented** - Complete guides and examples
+- ✅ **Production-Ready** - Tested and deployed on live servers
+- ✅ **Complete Data** - 250 countries, 5000+ states, 143,000+ cities
+- ✅ **Bangladesh Focus** - Comprehensive BD administrative data with Bengali support
+- ✅ **RESTful Standards** - Clean, predictable API design
+- ✅ **Well Documented** - Complete guides for deployment and usage
 - ✅ **Free & Open Source** - MIT License, use in any project
 - ✅ **Easy Deployment** - Works on cPanel, VPS, cloud hosting
-- ✅ **Laravel 11** - Modern PHP framework with best practices
+- ✅ **Laravel Best Practices** - Modern PHP framework with MVC architecture
 
 ## 🙏 Acknowledgments
 
@@ -639,8 +516,7 @@ If you encounter any issues or have questions:
 ## 📈 Project Stats
 
 - **Database Size**: ~143,000+ geographical records
-- **Countries**: 250+ with flags and phone codes
-- **API Endpoints**: 44 RESTful endpoints
+- **API Endpoints**: 43 RESTful endpoints
 - **Response Format**: JSON
 - **Authentication**: Open (can be extended with Laravel Sanctum/Passport)
 - **Database Support**: MySQL, PostgreSQL
